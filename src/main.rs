@@ -1,8 +1,6 @@
-use poker_hands::poker;
+use poker_hands::poker::{cards, values};
 
 fn main() {
-    println!("{:?}", poker::cards::Card {
-        value: poker::cards::Value::Ace,
-        suite: poker::cards::Suite::Spades,
-    });
+    println!("{:?}", cards::Card::new(values::Value::Ace));
+    println!("{:?}", values::Value::Seven);
 }
