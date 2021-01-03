@@ -13,6 +13,8 @@ pub enum Value {
 	Queen,
 	King,
 	Ace,
+
+	Joker,
 }
 
 pub fn from_string(slice: &str) -> Option<Value> {
@@ -38,6 +40,7 @@ fn from_char(ch: char) -> Option<Value> {
 		'q' | 'Q' => Some(Value::Queen),
 		'k' | 'K' => Some(Value::King),
 		'a' | 'A' => Some(Value::Ace),
+		'r' | 'R' => Some(Value::Joker),
 		_ => None,
 	}
 }
@@ -62,6 +65,7 @@ mod tests {
 			('Q', Value::Queen),
 			('K', Value::King),
 			('A', Value::Ace),
+			('J', Value::Joker),
 		];
 
 		for (ch, expectation) in tests {
@@ -91,6 +95,7 @@ mod tests {
 			("Q", Value::Queen),
 			("K", Value::King),
 			("A", Value::Ace),
+			("J", Value::Joker),
 
 			("200", Value::Two),
 		];
