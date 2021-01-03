@@ -35,7 +35,7 @@ fn from_char(ch: char) -> Option<Value> {
 		'7' => Some(Value::Seven),
 		'8' => Some(Value::Eight),
 		'9' => Some(Value::Nine),
-		// '10' => Unable to be represented by a single char
+		'X' => Some(Value::Ten), // Roman numberal?
 		'j' | 'J' => Some(Value::Jack),
 		'q' | 'Q' => Some(Value::Queen),
 		'k' | 'K' => Some(Value::King),
