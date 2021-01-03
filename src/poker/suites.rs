@@ -6,15 +6,13 @@ pub enum Suite {
 	Spades,
 }
 
-impl Suite {
-	pub fn from_char(ch: char) -> Option<Suite> {
-		match ch {
-			'c' | 'C' => Some(Suite::Clubs),
-			'd' | 'D' => Some(Suite::Diamonds),
-			'h' | 'H' => Some(Suite::Hearts),
-			's' | 'S' => Some(Suite::Spades),
-			_ => None,
-		}
+pub fn from_char(ch: char) -> Option<Suite> {
+	match ch {
+		'c' | 'C' => Some(Suite::Clubs),
+		'd' | 'D' => Some(Suite::Diamonds),
+		'h' | 'H' => Some(Suite::Hearts),
+		's' | 'S' => Some(Suite::Spades),
+		_ => None,
 	}
 }
 
@@ -36,7 +34,7 @@ mod tests {
 		];
 
 		for (test, expectation) in tests {
-			let value = Suite::from_char(test);
+			let value = from_char(test);
 			let result = match value {
 				Some(x) => x,
 				None => panic!("Unable to convert {} to {:?}", test, expectation),
@@ -47,6 +45,6 @@ mod tests {
 
 	#[test]
 	fn test_from_invalid_char() {
-		assert_eq!(None, Suite::from_char('X'));
+		assert_eq!(None, from_char('X'));
 	}
 }
