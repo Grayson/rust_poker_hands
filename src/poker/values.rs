@@ -6,7 +6,7 @@ pub enum Value {
 	Five,
 	Six,
 	Seven,
-	Eigth,
+	Eight,
 	Nine,
 	Ten,
 	Jack,
