@@ -1,5 +1,6 @@
 use super::values;
 use super::suites;
+use std::cmp;
 
 #[derive(Debug, PartialEq)]
 pub struct Card {
@@ -13,6 +14,12 @@ impl Card {
 			suite: suite,
 			value: value,
 		}
+	}
+}
+
+impl PartialOrd for Card {
+	fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+		self.value.partial_cmp(&other.value)
 	}
 }
 
