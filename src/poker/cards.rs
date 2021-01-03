@@ -1,23 +1,16 @@
 use super::values;
-
-#[derive(Debug)]
-pub enum Suite {
-	Clubs,
-	Diamonds,
-	Hearts,
-	Spades,
-}
+use super::suites;
 
 #[derive(Debug)]
 pub struct Card {
-	pub suite: Suite,
+	pub suite: suites::Suite,
 	pub value: values::Value,
 }
 
 impl Card {
-	pub fn new(value: values::Value) -> Card {
+	pub fn new(suite: suites::Suite, value: values::Value) -> Card {
 		Card {
-			suite: Suite::Spades,
+			suite: suite,
 			value: value,
 		}
 	}
