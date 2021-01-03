@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use super::cards::Card;
 use super::values::Value;
 
-#[derive(Debug)]
+#[derive(Debug, PartialOrd, PartialEq)]
 pub enum Hand {
 	HighCard,
 	OnePair,
