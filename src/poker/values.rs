@@ -34,10 +34,10 @@ fn from_char(ch: char) -> Option<Value> {
 		'8' => Some(Value::Eight),
 		'9' => Some(Value::Nine),
 		// '10' => Unable to be represented by a single char
-		'J' => Some(Value::Jack),
-		'Q' => Some(Value::Queen),
-		'K' => Some(Value::King),
-		'A' => Some(Value::Ace),
+		'j' | 'J' => Some(Value::Jack),
+		'q' | 'Q' => Some(Value::Queen),
+		'k' | 'K' => Some(Value::King),
+		'a' | 'A' => Some(Value::Ace),
 		_ => None,
 	}
 }
