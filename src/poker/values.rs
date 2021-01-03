@@ -1,4 +1,4 @@
-#[derive(Copy, Clone, Debug, PartialEq, PartialOrd)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd)]
 pub enum Value {
 	Two,
 	Three,
