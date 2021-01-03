@@ -2,7 +2,7 @@ use super::values;
 use super::suites;
 use std::cmp;
 
-#[derive(Debug, PartialEq)]
+#[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Card {
 	pub suite: suites::Suite,
 	pub value: values::Value,
