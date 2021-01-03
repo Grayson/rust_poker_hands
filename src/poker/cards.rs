@@ -56,6 +56,22 @@ fn from_two_char_card(string: &str) -> Option<Card> {
 	else { None }
 }
 
+fn reify_slice(string: &str) -> Option<Card> {
+	match from_two_char_card(string) {
+		Some(x) => Some(x),
+		None => from_ten_string(string),
+	}
+}
+
+pub fn collect_cards(data: &str) -> Vec<Card> {
+	data.split(|c: char| !c.is_alphanumeric())
+		.filter(|x| !x.is_empty())
+		.map(|x| reify_slice(x))
+		.filter(|x| x.is_some())
+		.map(|x| x.unwrap())
+		.collect()
+}
+
 #[cfg(test)]
 mod test {
 	use super::*;
@@ -83,5 +99,19 @@ mod test {
 		assert_eq!(ace_of_spades, from_two_char_card("SA").unwrap());
 		assert_eq!(ace_of_spades, from_two_char_card("Sa").unwrap());
 		assert_eq!(ace_of_spades, from_two_char_card("sa").unwrap());
+	}
+
+	#[test]
+	fn collect_card() {
+		let test = "AC";
+		let cards = collect_cards(test);
+		assert_eq!(1, cards.len());
+	}
+
+	#[test]
+	fn test_collect_cards() {
+		let test = "AC;2D 3H,*$5X1S+4S";
+		let cards = collect_cards(test);
+		assert_eq!(4, cards.len());
 	}
 }
