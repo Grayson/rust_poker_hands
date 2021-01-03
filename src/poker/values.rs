@@ -18,6 +18,18 @@ pub enum Value {
 impl Value {
 	pub fn from_char(ch: char) -> Option<Value> {
 		match ch {
+			'2' => Some(Value::Two),
+			'3' => Some(Value::Three),
+			'4' => Some(Value::Four),
+			'5' => Some(Value::Five),
+			'6' => Some(Value::Six),
+			'7' => Some(Value::Seven),
+			'8' => Some(Value::Eight),
+			'9' => Some(Value::Nine),
+			// '10' => Some(Value::Ten),
+			'J' => Some(Value::Jack),
+			'Q' => Some(Value::Queen),
+			'K' => Some(Value::King),
 			'A' => Some(Value::Ace),
 			_ => None,
 		}
@@ -30,7 +42,30 @@ mod tests {
 
 	#[test]
 	fn test_chars() {
-		let value = Value::from_char('A');
-		assert_eq!(Value::Ace, value.unwrap());
+		let tests = vec![
+			('2', Value::Two),
+			('3', Value::Three),
+			('4', Value::Four),
+			('5', Value::Five),
+			('6', Value::Six),
+			('7', Value::Seven),
+			('8', Value::Eight),
+			('9', Value::Nine),
+			// ('10', Value::Ten),
+			('J', Value::Jack),
+			('Q', Value::Queen),
+			('K', Value::King),
+			('A', Value::Ace),
+		];
+
+		for (ch, expectation) in tests {
+			let value = Value::from_char(ch);
+			assert_eq!(expectation, value.unwrap());	
+		}
+	}
+
+	#[test]
+	fn test_invalid() {
+		assert_eq!(Value::from_char('B'), None);
 	}
 }
