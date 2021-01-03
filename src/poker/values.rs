@@ -65,7 +65,7 @@ mod tests {
 			('Q', Value::Queen),
 			('K', Value::King),
 			('A', Value::Ace),
-			('J', Value::Joker),
+			('R', Value::Joker),
 		];
 
 		for (ch, expectation) in tests {
@@ -95,7 +95,7 @@ mod tests {
 			("Q", Value::Queen),
 			("K", Value::King),
 			("A", Value::Ace),
-			("J", Value::Joker),
+			("R", Value::Joker),
 
 			("200", Value::Two),
 		];
