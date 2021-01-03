@@ -1,5 +1,5 @@
 #[derive(Debug)]
-pub enum Values {
+pub enum Value {
 	Two,
 	Three,
 	Four,
@@ -16,9 +16,15 @@ pub enum Values {
 }
 
 #[derive(Debug)]
-pub enum Suites {
+pub enum Suite {
 	Clubs,
 	Diamonds,
 	Hearts,
 	Spades,
+}
+
+#[derive(Debug)]
+pub struct Card {
+	pub suite: Suite,
+	pub value: Value,
 }
