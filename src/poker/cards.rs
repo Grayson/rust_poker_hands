@@ -46,4 +46,5 @@ mod test {
 			value: values::Value::Ten,
 		};
 		assert_eq!(ten_of_hearts, from_ten_string("10H").unwrap());
+		assert_eq!(ten_of_hearts, from_ten_string("H10").unwrap());
 	}
