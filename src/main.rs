@@ -1,3 +1,5 @@
+use poker_hands::poker;
+
 fn main() {
-    println!("Hello, world!");
+    println!("{:?}", poker::cards::Suites::Spades);
 }
