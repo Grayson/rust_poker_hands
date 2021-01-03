@@ -93,6 +93,8 @@ mod tests {
 			("Q", Value::Queen),
 			("K", Value::King),
 			("A", Value::Ace),
+
+			("200", Value::Two),
 		];
 
 		for (test, expectation) in tests {
