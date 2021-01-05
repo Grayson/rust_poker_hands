@@ -31,8 +31,23 @@ pub fn card_counts(cards: &[Card]) -> HashMap<Value, i32>
 pub fn determine_high_hand(cards: &[Card]) -> Hand {
 	get_hands_made_of_duplicates(cards)
 		.or(discern_straight_hand(cards))
+		.or(discern_flush_hand(cards))
 		.or(Some(Hand::HighCard))
 		.unwrap()
+}
+
+fn discern_flush_hand(cards: &[Card]) -> Option<Hand> {
+	let mut max_number_of_cards_of_a_specific_suite = 0;
+	for card in cards {
+		max_number_of_cards_of_a_specific_suite = cmp::max(
+			max_number_of_cards_of_a_specific_suite,
+			cards.iter().map(|c| (c.suite == card.suite) as i32).sum());
+	}
+
+	match max_number_of_cards_of_a_specific_suite >= 5 {
+		true => Some(Hand::Flush),
+		false => None,
+	}
 }
 
 fn discern_straight_hand(cards: &[Card]) -> Option<Hand> {
