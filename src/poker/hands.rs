@@ -29,9 +29,16 @@ pub fn card_counts(cards: &[Card]) -> HashMap<Value, i32>
 }
 
 pub fn determine_high_hand(cards: &[Card]) -> Hand {
+	let straight = discern_straight_hand(cards);
+	let flush = discern_flush_hand(cards);
+	let straightflush = match straight.is_some() && flush.is_some() {
+		true => Some(Hand::StraightFlush),
+		false => None,
+	};
 	get_hands_made_of_duplicates(cards)
-		.or(discern_straight_hand(cards))
-		.or(discern_flush_hand(cards))
+		.or(straightflush)
+		.or(straight)
+		.or(flush)
 		.or(Some(Hand::HighCard))
 		.unwrap()
 }
