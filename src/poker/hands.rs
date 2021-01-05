@@ -236,4 +236,18 @@ mod tests {
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
 	}
+
+	#[test]
+	fn test_flush() {
+		let cards = [
+			Card::new(Suite::Clubs, Value::Ace),
+			Card::new(Suite::Clubs, Value::Two),
+			Card::new(Suite::Clubs, Value::Three),
+			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Clubs, Value::Six),
+		];
+
+		assert_eq!(Hand::Flush, determine_high_hand(&cards));
+	}
+
 }
