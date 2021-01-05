@@ -127,7 +127,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Two),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Four),
-			Card::new(Suite::Clubs, Value::Six),
+			Card::new(Suite::Diamonds, Value::Six),
 		];
 
 		assert_eq!(Hand::HighCard, determine_high_hand(&cards));
