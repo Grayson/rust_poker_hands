@@ -29,10 +29,32 @@ pub fn card_counts(cards: &[Card]) -> HashMap<Value, i32>
 }
 
 pub fn determine_high_hand(cards: &[Card]) -> Hand {
+	let straight = discern_straight_hand(cards);
+	let flush = discern_flush_hand(cards);
+	let straightflush = match straight.is_some() && flush.is_some() {
+		true => Some(Hand::StraightFlush),
+		false => None,
+	};
 	get_hands_made_of_duplicates(cards)
-		.or(discern_straight_hand(cards))
+		.or(straightflush)
+		.or(straight)
+		.or(flush)
 		.or(Some(Hand::HighCard))
 		.unwrap()
+}
+
+fn discern_flush_hand(cards: &[Card]) -> Option<Hand> {
+	let mut max_number_of_cards_of_a_specific_suite = 0;
+	for card in cards {
+		max_number_of_cards_of_a_specific_suite = cmp::max(
+			max_number_of_cards_of_a_specific_suite,
+			cards.iter().map(|c| (c.suite == card.suite) as i32).sum());
+	}
+
+	match max_number_of_cards_of_a_specific_suite >= 5 {
+		true => Some(Hand::Flush),
+		false => None,
+	}
 }
 
 fn discern_straight_hand(cards: &[Card]) -> Option<Hand> {
@@ -127,7 +149,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Two),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Four),
-			Card::new(Suite::Clubs, Value::Six),
+			Card::new(Suite::Diamonds, Value::Six),
 		];
 
 		assert_eq!(Hand::HighCard, determine_high_hand(&cards));
@@ -205,7 +227,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Ace),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Five),
-			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Diamonds, Value::Four),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
@@ -218,7 +240,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Ace),
 			Card::new(Suite::Clubs, Value::Queen),
 			Card::new(Suite::Clubs, Value::Ten),
-			Card::new(Suite::Clubs, Value::Jack),
+			Card::new(Suite::Diamonds, Value::Jack),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
@@ -231,9 +253,35 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Six),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Five),
-			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Diamonds, Value::Four),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
+	}
+
+	#[test]
+	fn test_flush() {
+		let cards = [
+			Card::new(Suite::Clubs, Value::Ace),
+			Card::new(Suite::Clubs, Value::Two),
+			Card::new(Suite::Clubs, Value::Three),
+			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Clubs, Value::Six),
+		];
+
+		assert_eq!(Hand::Flush, determine_high_hand(&cards));
+	}
+
+	#[test]
+	fn test_straight_flush() {
+		let cards = [
+			Card::new(Suite::Clubs, Value::Ace),
+			Card::new(Suite::Clubs, Value::Two),
+			Card::new(Suite::Clubs, Value::Three),
+			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Clubs, Value::Five),
+		];
+
+		assert_eq!(Hand::StraightFlush, determine_high_hand(&cards));
 	}
 }
