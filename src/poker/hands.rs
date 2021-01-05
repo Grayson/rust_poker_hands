@@ -35,6 +35,7 @@ pub fn determine_high_hand(cards: &[Card]) -> Hand {
 		true => Some(Hand::StraightFlush),
 		false => None,
 	};
+
 	get_hands_made_of_duplicates(cards)
 		.or(straightflush)
 		.or(straight)
@@ -101,12 +102,26 @@ fn max_count_of_adjacent_set_bits(bitmask: i32, number_of_bits_to_check: i32) ->
 
 fn get_hands_made_of_duplicates(cards: &[Card]) -> Option<Hand> {
 	let counts = card_counts(cards);
-	match counts.values().max().unwrap() {
-		5 => Some(Hand::FiveOfAKind),
-		4 => Some(Hand::FourOfAKind),
-		3 => Some(Hand::ThreeOfAKind),
-		2 => Some(distinguish_pairs_from_two_pairs(&counts)),
-		_ => None,
+
+	match discern_full_house(&counts) {
+		Some(x) => Some(x),
+		None => match counts.values().max().unwrap() {
+			5 => Some(Hand::FiveOfAKind),
+			4 => Some(Hand::FourOfAKind),
+			3 => Some(Hand::ThreeOfAKind),
+			2 => Some(distinguish_pairs_from_two_pairs(&counts)),
+			_ => None,
+		}
+	}
+}
+
+fn discern_full_house(counts: &HashMap<Value, i32>) -> Option<Hand> {
+	let mut doubles = counts.iter().filter(|x| *x.1 == 2);
+	let mut trips = counts.iter().filter(|x| *x.1 == 3);
+
+	match doubles.next().is_some() && trips.next().is_some() {
+		true => Some(Hand::FullHouse),
+		false => None,
 	}
 }
 
