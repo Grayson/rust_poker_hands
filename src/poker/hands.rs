@@ -284,4 +284,17 @@ mod tests {
 
 		assert_eq!(Hand::StraightFlush, determine_high_hand(&cards));
 	}
+
+	#[test]
+	fn test_full_house() {
+		let cards = [
+			Card::new(Suite::Clubs, Value::Ace),
+			Card::new(Suite::Diamonds, Value::Ace),
+			Card::new(Suite::Hearts, Value::Ace),
+			Card::new(Suite::Clubs, Value::Two),
+			Card::new(Suite::Diamonds, Value::Two),
+		];
+
+		assert_eq!(Hand::FullHouse, determine_high_hand(&cards));
+	}
 }
