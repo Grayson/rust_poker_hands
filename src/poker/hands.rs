@@ -227,7 +227,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Ace),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Five),
-			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Diamonds, Value::Four),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
@@ -240,7 +240,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Ace),
 			Card::new(Suite::Clubs, Value::Queen),
 			Card::new(Suite::Clubs, Value::Ten),
-			Card::new(Suite::Clubs, Value::Jack),
+			Card::new(Suite::Diamonds, Value::Jack),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
@@ -253,7 +253,7 @@ mod tests {
 			Card::new(Suite::Clubs, Value::Six),
 			Card::new(Suite::Clubs, Value::Three),
 			Card::new(Suite::Clubs, Value::Five),
-			Card::new(Suite::Clubs, Value::Four),
+			Card::new(Suite::Diamonds, Value::Four),
 		];
 
 		assert_eq!(Hand::Straight, determine_high_hand(&cards));
